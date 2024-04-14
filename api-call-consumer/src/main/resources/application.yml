@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile:
+        - default
+        - local
+app:
+  inventory:
+    student-base-url : http://localhost:8085
+    account-base-url : http://localhost:8082
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - test
+app:
+  inventory:
+    base-url : http://localhost:${wiremock.server.port}
