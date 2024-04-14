@@ -2,23 +2,24 @@ package com.demo.spring.util;
 
 import com.demo.spring.dto.Account;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class AccountClient {
 
-    private final RestClient accountRestClient;
+    private final WebClient accountWebClient;
 
-    public AccountClient(RestClient accountRestClient) {
-        this.accountRestClient = accountRestClient;
+    public AccountClient(WebClient accountWebClient) {
+        this.accountWebClient = accountWebClient;
     }
 
     public Account getAccount() {
 
-        Account account= accountRestClient.get()
+        return accountWebClient.get()
                 .uri("/account")
                 .retrieve()
-                .body(Account.class);
-        return account;
+                .bodyToMono(Account.class)
+                .block();
+
     }
 }

@@ -2,27 +2,28 @@ package com.demo.spring.util;
 
 import com.demo.spring.dto.Student;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class StudentClient {
 
-    private final RestClient studentRestClient;
+    private final WebClient studentWebClient;
 
-    public StudentClient(RestClient studentRestClient) {
-        this.studentRestClient=studentRestClient;
+    public StudentClient(WebClient studentWebClient) {
+        this.studentWebClient=studentWebClient;
     }
 
 
     public Student getStudent() {
 
 
-        Student student= studentRestClient.get()
+        return studentWebClient.get()
                 .uri("/student")
                 .retrieve()
-                .body(Student.class);
+                .bodyToMono(Student.class)
+                .block();
 
 
-        return student;
+
     }
 }
