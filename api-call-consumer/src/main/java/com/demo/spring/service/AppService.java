@@ -22,8 +22,8 @@ public class AppService {
     public Student getStudent() {
         String name=testService.getString();
 
-        Student student= studentClient.getStudent();
-        Account account= accountClient.getAccount();
+        Student student= studentClient.getStudent().getBody();
+        Account account= accountClient.getAccount().getBody();
 
         student.setName(name);
         return student;

@@ -16,4 +16,6 @@ spring:
         - test
 app:
   inventory:
-    base-url : http://localhost:${wiremock.server.port}
+    student-base-url : http://localhost:${wiremock.server.port}
+    account-base-url : http://localhost:${wiremock.server.port}
+

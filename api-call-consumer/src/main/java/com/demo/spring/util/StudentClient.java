@@ -1,29 +1,14 @@
 package com.demo.spring.util;
 
 import com.demo.spring.dto.Student;
-import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@Service
-public class StudentClient {
+@FeignClient(name = "student-producer", url = "${app.inventory.account-base-url}")
+public interface StudentClient {
 
-    private final WebClient studentWebClient;
-
-    public StudentClient(WebClient studentWebClient) {
-        this.studentWebClient=studentWebClient;
-    }
-
-
-    public Student getStudent() {
-
-
-        return studentWebClient.get()
-                .uri("/student")
-                .retrieve()
-                .bodyToMono(Student.class)
-                .block();
-
-
-
-    }
+    @RequestMapping(method = RequestMethod.GET, value = "/student")
+    ResponseEntity<Student> getStudent();
 }
