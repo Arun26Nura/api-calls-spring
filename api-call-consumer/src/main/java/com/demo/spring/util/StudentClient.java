@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "student-producer", url = "${app.inventory.account-base-url}")
+@FeignClient(name = "student-producer", url = "${app.inventory.student-base-url}")
 public interface StudentClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/student")
